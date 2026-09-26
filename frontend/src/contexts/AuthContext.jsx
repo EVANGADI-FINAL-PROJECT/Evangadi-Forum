@@ -38,12 +38,23 @@ export function AuthProvider({ children }) {
 
   /**
    * Registers a new user. Does not automatically log them in.
+   * the user must log in after registration succeeds.
    * @param {Object} userData - { firstName, lastName, email, password }
    */
   const register = async (userData) => {
-// Task: AuthContext + ProtectedRoute
     // TODO: Call the auth service registration method and manage loading state.
-    // Write the task implementation here.
+    setLoading(true);
+    try {
+      const { user } = await authService.register(userData);
+      return { success: true, user };
+    } catch (error) {
+      // Re-throw so the calling component can show the error message
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+    
 };
 
   /**
@@ -85,7 +96,7 @@ export function AuthProvider({ children }) {
 //     logout,
 //     isAuthenticated: !!user
 // }
-}
+
 
 /**
  * Custom hook to access the authentication context.
