@@ -21,12 +21,13 @@ async function register(userData) {
  */
 async function login(credentials) {
   try {
+    // Send email and password to the login endpoint
     const response = await apiClient.post("/api/auth/login", credentials);
     const { user, token } = response.data;
-
+   // Pull "user" and "token" out of the response body (destructuring)
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
-
+  // Save the token so the user stays logged in after a page refresh
     return { user, token };
   } catch (error) {
     throw handleAuthError(error);
