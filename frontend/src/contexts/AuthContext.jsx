@@ -24,8 +24,16 @@ export function AuthProvider({ children }) {
   // application needs to check whether the user already has a valid/stored session.
   // Initialize user state from localStorage on mount
   useEffect(() => {
-    // Task: AuthContext + ProtectedRoute
-    // TODO: Restore the existing authentication session from storage.
+    //on initial mount, restore the session if a token and user are restored.
+    //this keeps the user logged in across page refreshes w/out re-login
+    const token = authService.getStoredToken();
+    const storedUser = authService.getStoredUser();
+
+    if (token && storedUser) {
+      setUser(storedUser);
+    }
+
+    setLoading(false);
   }, []);
 
   /**
