@@ -82,8 +82,10 @@ export function AuthProvider({ children }) {
    * handles removing/clearing the stored authentication session
    */
   const logout = () => {
-    // Task: AuthContext + ProtectedRoute
     // TODO: Clear the auth session, update user state, and navigate to /auth.
+    authService.logout();
+    setUser(null);
+    navigate("/auth");
   };
 
   // Context value with state and methods
