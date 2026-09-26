@@ -33,23 +33,17 @@ async function login(credentials) {
     throw handleAuthError(error);
   }
 }
-/**
- * Logs out the current user by clearing localStorage.
- */
+//Remove session data; key names must match the ones used in login()
 function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
 }
-/**
- * Retrieves the stored JWT token from localStorage.
- */
+// Returns the saved token, or null if the user is not logged in
 function getStoredToken() {
   return localStorage.getItem("token");
 }
 
-/**
- * Retrieves the stored user object from localStorage.
- */
+// "!!" converts the token to true/false (does NOT check if it has expired)
 function getStoredUser() {
   const userJson = localStorage.getItem("user");
   if (!userJson) return null;
