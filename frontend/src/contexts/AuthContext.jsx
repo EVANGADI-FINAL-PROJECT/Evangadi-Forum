@@ -59,12 +59,22 @@ export function AuthProvider({ children }) {
 
   /**
    * Authenticates a user and updates the session state if successful..
+   * The auth service persists the token and user in localStorage.
    * @param {Object} credentials - { email, password }
    */
   const login = async (credentials) => {
-// Task: AuthContext + ProtectedRoute
     // TODO: Call the auth service login method and update the authenticated user state.
-    // Write the task implementation here.
+      setLoading(true);
+    try {
+      const { user } = await authService.login(credentials);
+      setUser(user);
+      return { success: true };
+    } catch (error) {
+      // Propagate the error so the calling form can display a message
+      throw error;
+    } finally {
+      setLoading(false);
+    }
 };
 
   /**
