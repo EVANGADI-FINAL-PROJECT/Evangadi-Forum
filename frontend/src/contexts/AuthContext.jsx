@@ -55,7 +55,7 @@ export function AuthProvider({ children }) {
     }
   };
     
-};
+
 
   /**
    * Authenticates a user and updates the session state if successful..
@@ -75,7 +75,8 @@ export function AuthProvider({ children }) {
     } finally {
       setLoading(false);
     }
-};
+  };
+
 
   /**
    * Clears the user session and redirects to the login page.
@@ -99,6 +100,7 @@ export function AuthProvider({ children }) {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
   // put information into AuthContext.Provider so that it can be accessed by any component that consumes this context.
 //   {
 //     user,
@@ -107,7 +109,7 @@ export function AuthProvider({ children }) {
 //     login,
 //     logout,
 //     isAuthenticated: !!user
-// }
+// } 
 
 
 /**
