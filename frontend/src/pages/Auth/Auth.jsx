@@ -64,9 +64,13 @@ export default function Auth() {
     const normalizedEmail = email.trim().toLowerCase();
     // regex for email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Check if email was entered
+    if (!normalizedEmail) {
+      setError("Email is required.");
+      return;
+    }
 
 
-    
     setError(null);
     setSuccessMessage(null);
 
