@@ -122,7 +122,20 @@ const trimmedFirstName = firstName.trim();
         setShowPassword(false);
         // Delay redirect to show successful message
         await new Promise((resolve) => setTimeout(resolve, 1000));
-
+  // Check location state for original URL after login
+        // Redirect to original URL if present, otherwise dashboard
+        const from = location.state?.from?.pathname || "/dashboard";
+        navigate(from, { replace: true });
+        navigate(from, { replace: true });
+      } else {
+        // Registration flow
+        await register({
+          firstName: trimmedFirstName,
+          lastName: trimmedLastName,
+          email: normalizedEmail,
+          password,
+        });
+        setSuccessMessage("Registration successful! Please log in.");
 
 
 
