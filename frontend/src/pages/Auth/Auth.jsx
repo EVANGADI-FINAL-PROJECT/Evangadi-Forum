@@ -70,9 +70,15 @@ export default function Auth() {
       return;
     }
 
-
+ // Check if email format is valid
+    if (!emailPattern.test(normalizedEmail)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
     setError(null);
     setSuccessMessage(null);
+
+    
 
   return (
     <div className={styles.auth}>
