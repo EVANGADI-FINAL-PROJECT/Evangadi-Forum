@@ -153,6 +153,7 @@ const trimmedFirstName = firstName.trim();
         <div className={styles.auth__infoContent}>
           {/* --------------------------------------------------------- HEADER / BRANDING Contains the logo, application name, tagline, and description. --------------------------------------------------------- */}
           <header className={styles.auth__infoHeader}>
+            {/* Branding container. Clicking the branding takes the user back to the home page. onClick: - Runs when the user clicks the branding. role="button": - Tells assistive technologies that this div behaves like a button. tabIndex={0}: - Allows keyboard users to focus on this element. onKeyDown: - Allows Enter or Space to perform the same action as clicking. */}
             <div
               className={styles.auth__infoBranding}
               onClick={() => navigate("/")}
