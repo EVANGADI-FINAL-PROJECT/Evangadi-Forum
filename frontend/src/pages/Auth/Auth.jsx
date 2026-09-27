@@ -98,7 +98,10 @@ const trimmedFirstName = firstName.trim();
       if (!trimmedLastName) {
         setError("Last name is required.");
         return;
-
+ }
+      if (trimmedLastName.length < 3) {
+        setError("Last name must be at least 3 characters long.");
+        return;
 
 
 
