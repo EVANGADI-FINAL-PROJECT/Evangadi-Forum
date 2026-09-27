@@ -148,6 +148,7 @@ const trimmedFirstName = firstName.trim();
   return (
     <div className={styles.auth}>
       {/* Left: Info Section */}
+      // TODO: Implement the left info section with branding, description, and features.
       <section className={styles.auth__info}>
         <div className={styles.auth__infoContent}>
           <header className={styles.auth__infoHeader}>
