@@ -161,6 +161,7 @@ const trimmedFirstName = firstName.trim();
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
+                // Check whether the user pressed Enter or Space
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
                   navigate("/");
