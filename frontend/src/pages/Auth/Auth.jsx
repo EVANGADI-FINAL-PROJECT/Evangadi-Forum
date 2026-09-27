@@ -36,8 +36,6 @@ export default function Auth() {
 
   const [isLogin, setIsLogin] = useState(true);
 
- 
-
   // Store registration and login form values
 
   // Registration form state
@@ -60,6 +58,8 @@ export default function Auth() {
     e.preventDefault();
     
 // Clear previous messages
+    setError(null);
+    setSuccessMessage(null);
 // Clean and normalize the email
     const normalizedEmail = email.trim().toLowerCase();
     // regex for email validation
@@ -153,7 +153,6 @@ const trimmedFirstName = firstName.trim();
       setLoading(false);
     }
   };
-
 
   return (
     <div className={styles.auth}>
