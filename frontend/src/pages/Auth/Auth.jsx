@@ -57,11 +57,9 @@ export default function Auth() {
 
   // Handle form submission for both login and registration
   const handleSubmit = async (e) => {
-    // Task: Auth Page UI
-    // TODO: Implement login/register form validation, submission, loading, success, and navigation.
-    // Keep the existing form/DOM skeleton below.
     e.preventDefault();
-  };
+    
+
 
   return (
     <div className={styles.auth}>
