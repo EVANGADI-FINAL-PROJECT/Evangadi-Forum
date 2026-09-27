@@ -60,7 +60,13 @@ export default function Auth() {
     e.preventDefault();
     
 // Clear previous messages
+// Clean and normalize the email
+    const normalizedEmail = email.trim().toLowerCase();
+    // regex for email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+
+    
     setError(null);
     setSuccessMessage(null);
 
