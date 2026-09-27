@@ -102,7 +102,12 @@ const trimmedFirstName = firstName.trim();
       if (trimmedLastName.length < 3) {
         setError("Last name must be at least 3 characters long.");
         return;
-
+ }
+      if (password.length < 6) {
+        setError("Password must be at least 6 characters long.");
+        return;
+      }
+    }
 
 
 
