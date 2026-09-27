@@ -19,12 +19,17 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Auth.module.css";
 
+// add export from auth context 
 export default function Auth() {
   // Get navigation and authentication functions
   const navigate = useNavigate();
   const location = useLocation();
   const { register, login } = useAuth();
-
+export default function Auth() {
+  // Get navigation and authentication functions
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { register, login } = useAuth();
   // Controls whether we show Login or Register form
 
   const [isLogin, setIsLogin] = useState(true);
