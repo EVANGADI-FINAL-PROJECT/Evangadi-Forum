@@ -25,13 +25,7 @@ export default function Auth() {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, login } = useAuth();
-export default function Auth() {
-  // Get navigation and authentication functions
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { register, login } = useAuth();
   
-
   // Controls whether we show Login or Register form
 
   const [isLogin, setIsLogin] = useState(true);
@@ -75,9 +69,6 @@ export default function Auth() {
       setError("Please enter a valid email address.");
       return;
     }
-    setError(null);
-    setSuccessMessage(null);
-
     // Check if password was entered
     if (!password.trim()) {
       setError("Password is required.");
@@ -401,4 +392,5 @@ const trimmedFirstName = firstName.trim();
       </section>
     </div>
   );
+}
 }
