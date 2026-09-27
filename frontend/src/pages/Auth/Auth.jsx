@@ -89,12 +89,17 @@ export default function Auth() {
                   size={22}
                 />{" "}
               </div>
+              {/* Application name and tagline */}{" "}
               <div className={styles.auth__infoBrandCopy}>
-                <p className={styles.auth__infoTitle}>Evangadi Forum</p>
+                {" "}
+                {/* Application title */}{" "}
+                <p className={styles.auth__infoTitle}> Evangadi Forum </p>{" "}
+                {/* Short application description/tagline */}{" "}
                 <p className={styles.auth__infoTagline}>
-                  Learn together. Ask with context.
-                </p>
-              </div>
+                  {" "}
+                  Learn together. Ask with context.{" "}
+                </p>{" "}
+              </div>{" "}
             </div>
             <p className={styles.auth__infoDescription}>
               Sign in to post technical questions, follow threads, and search
