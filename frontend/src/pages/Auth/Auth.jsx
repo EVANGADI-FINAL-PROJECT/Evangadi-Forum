@@ -85,7 +85,11 @@ export default function Auth() {
     }
 const trimmedFirstName = firstName.trim();
     const trimmedLastName = lastName.trim();
-
+    
+ if (!isLogin) {
+      if (!trimmedFirstName) {
+        setError("First name is required.");
+        return;
 
 
   return (
