@@ -59,7 +59,10 @@ export default function Auth() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+// Clear previous messages
 
+    setError(null);
+    setSuccessMessage(null);
 
   return (
     <div className={styles.auth}>
