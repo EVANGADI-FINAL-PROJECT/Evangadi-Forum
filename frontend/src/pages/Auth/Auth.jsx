@@ -101,10 +101,12 @@ export default function Auth() {
                 </p>{" "}
               </div>{" "}
             </div>
+            {/* General description of what users can do after signing in. */}{" "}
             <p className={styles.auth__infoDescription}>
+              {" "}
               Sign in to post technical questions, follow threads, and search
               the forum with both keyword and AI similarity modes, built for
-              Evangadi coursework and peer review.
+              Evangadi coursework and peer review.{" "}
             </p>
           </header>
 
