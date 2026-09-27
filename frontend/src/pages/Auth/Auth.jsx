@@ -78,7 +78,11 @@ export default function Auth() {
     setError(null);
     setSuccessMessage(null);
 
-    
+    // Check if password was entered
+    if (!password.trim()) {
+      setError("Password is required.");
+      return;
+    }
 
   return (
     <div className={styles.auth}>
