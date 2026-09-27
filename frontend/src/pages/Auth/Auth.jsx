@@ -151,6 +151,7 @@ const trimmedFirstName = firstName.trim();
       // TODO: Implement the left info section with branding, description, and features.
       <section className={styles.auth__info}>
         <div className={styles.auth__infoContent}>
+          {/* --------------------------------------------------------- HEADER / BRANDING Contains the logo, application name, tagline, and description. --------------------------------------------------------- */}
           <header className={styles.auth__infoHeader}>
             <div
               className={styles.auth__infoBranding}
