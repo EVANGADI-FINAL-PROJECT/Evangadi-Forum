@@ -30,6 +30,8 @@ export default function Auth() {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, login } = useAuth();
+  
+
   // Controls whether we show Login or Register form
 
   const [isLogin, setIsLogin] = useState(true);
