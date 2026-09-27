@@ -113,7 +113,15 @@ const trimmedFirstName = firstName.trim();
     try {
       if (isLogin) {
 
-
+ // Login flow
+        await login({ email: normalizedEmail, password });
+        setSuccessMessage("Sign-in successful. Redirecting...");
+        // Clear form fields
+        setEmail("");
+        setPassword("");
+        setShowPassword(false);
+        // Delay redirect to show successful message
+        await new Promise((resolve) => setTimeout(resolve, 1000));
 
 
 
