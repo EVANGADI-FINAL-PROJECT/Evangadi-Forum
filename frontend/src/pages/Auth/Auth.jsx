@@ -49,106 +49,17 @@ export default function Auth() {
 
   // Handle form submission for both login and registration
   const handleSubmit = async (e) => {
+// Task: Auth Page UI
+    // TODO: Implement login/register form validation, submission, loading, success, and navigation.
+    // Keep the existing form/DOM skeleton below.
     e.preventDefault();
-    
-// Clear previous messages
-    setError(null);
-    setSuccessMessage(null);
-// Clean and normalize the email
-    const normalizedEmail = email.trim().toLowerCase();
-    // regex for email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// Check if email was entered
-    if (!normalizedEmail) {
-      setError("Email is required.");
-      return;
-    }
-
- // Check if email format is valid
-    if (!emailPattern.test(normalizedEmail)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-    // Check if password was entered
-    if (!password.trim()) {
-      setError("Password is required.");
-      return;
-    }
-const trimmedFirstName = firstName.trim();
-    const trimmedLastName = lastName.trim();
-    
- if (!isLogin) {
-      if (!trimmedFirstName) {
-        setError("First name is required.");
-        return;
- }
-      if (trimmedFirstName.length < 3) {
-        setError("First name must be at least 3 characters long.");
-        return;
-}
-      if (!trimmedLastName) {
-        setError("Last name is required.");
-        return;
- }
-      if (trimmedLastName.length < 3) {
-        setError("Last name must be at least 3 characters long.");
-        return;
- }
-      if (password.length < 6) {
-        setError("Password must be at least 6 characters long.");
-        return;
-      }
-    }
-  setLoading(true);
-
-    try {
-      if (isLogin) {
-
- // Login flow
-        await login({ email: normalizedEmail, password });
-        setSuccessMessage("Sign-in successful. Redirecting...");
-        // Clear form fields
-        setEmail("");
-        setPassword("");
-        setShowPassword(false);
-        // Delay redirect to show successful message
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-  // Check location state for original URL after login
-        // Redirect to original URL if present, otherwise dashboard
-        const from = location.state?.from?.pathname || "/dashboard";
-        navigate(from, { replace: true });
-        navigate(from, { replace: true });
-      } else {
-        // Registration flow
-        await register({
-          firstName: trimmedFirstName,
-          lastName: trimmedLastName,
-          email: normalizedEmail,
-          password,
-        });
-        setSuccessMessage("Registration successful! Please log in.");
- // Clear form fields
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPassword("");
-        // Automatically switch to login form after 1.5 seconds
-        setTimeout(() => {
-          setIsLogin(true);
-          setSuccessMessage(null);
-        }, 1500);
-      }
-    } catch (err) {
-      setError(err.message || "An unexpected error occurred.");
-    } finally {
-      setLoading(false);
-    }
-  };
+};
 
   return (
     <div className={styles.auth}>
       {/* Left: Info Section */}
-      // TODO: Implement the left info section with branding, description, and features.
+      // TODO: Implement the left info section with branding, description, and
+      features.
       <section className={styles.auth__info}>
         <div className={styles.auth__infoContent}>
           {/* --------------------------------------------------------- HEADER / BRANDING Contains the logo, application name, tagline, and description. --------------------------------------------------------- */}
@@ -169,11 +80,14 @@ const trimmedFirstName = firstName.trim();
                 }
               }}
             >
+              {/* Application logo */}{" "}
               <div className={styles.auth__infoLogo} aria-hidden>
+                {" "}
+                {/* MessageSquare is an icon imported from an icon library. aria-hidden means screen readers do not need to announce this decorative icon. */}{" "}
                 <MessageSquare
                   className={styles.auth__infoLogoIcon}
                   size={22}
-                />
+                />{" "}
               </div>
               <div className={styles.auth__infoBrandCopy}>
                 <p className={styles.auth__infoTitle}>Evangadi Forum</p>
@@ -239,7 +153,6 @@ const trimmedFirstName = firstName.trim();
           </div>
         </div>
       </section>
-
       {/* Right: Auth Forms */}
       <section className={styles.auth__formSection}>
         <div className={styles.auth__formContainer}>
