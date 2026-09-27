@@ -136,7 +136,23 @@ const trimmedFirstName = firstName.trim();
           password,
         });
         setSuccessMessage("Registration successful! Please log in.");
-
+ // Clear form fields
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        // Automatically switch to login form after 1.5 seconds
+        setTimeout(() => {
+          setIsLogin(true);
+          setSuccessMessage(null);
+        }, 1500);
+      }
+    } catch (err) {
+      setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   return (
