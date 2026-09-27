@@ -164,6 +164,7 @@ const trimmedFirstName = firstName.trim();
                 // Check whether the user pressed Enter or Space
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
+                  // Navigate to the application's home page
                   navigate("/");
                 }
               }}
