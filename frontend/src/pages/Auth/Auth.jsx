@@ -47,7 +47,7 @@ export default function Auth() {
   const [password, setPassword] = useState("");
 
 
-  // Controls password visibility
+   // Controls password visibility
   const [showPassword, setShowPassword] = useState(false);
 
   // Error and loading state
