@@ -108,6 +108,12 @@ const trimmedFirstName = firstName.trim();
         return;
       }
     }
+  setLoading(true);
+
+    try {
+      if (isLogin) {
+
+
 
 
 
