@@ -83,6 +83,10 @@ export default function Auth() {
       setError("Password is required.");
       return;
     }
+const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+
+
 
   return (
     <div className={styles.auth}>
