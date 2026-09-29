@@ -81,6 +81,15 @@ export const registerService = async ({
     throw error;
   }
 
+  // Return the newly created user's information.
+  // The password/hash is intentionally not included in the response.
+  return {
+    id: result.insertId,
+    firstName,
+    lastName,
+    email: normalizedEmail,
+  };
+
 };
 
 /**
