@@ -45,10 +45,9 @@ export const registerService = async ({
   email,
   password,
 }) => {
-// Task: Register User
-  // TODO: Validate the request data, prevent duplicate users, hash the password,
-  // create the user, and return the public user fields.
-  // Write the task implementation here.
+  const normalizedEmail = normalizeEmail(email);
+  // This provides an application-level check before attempting the database insert.
+  const userExists = await checkUserExists(normalizedEmail);
 };
 
 /**
