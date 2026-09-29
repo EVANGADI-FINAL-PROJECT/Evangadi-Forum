@@ -56,6 +56,31 @@ export const registerService = async ({
   const salt = await bcrypt.genSalt(10);
   // Hash the user's password using the generated salt.
   const hashedPassword = await bcrypt.hash(password, salt);
+
+  //  insert the new user's data into the database
+  const sql =
+    "INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?)";
+
+    let result;
+
+  try {
+    // Execute the INSERT query with the user's data
+    result = await safeExecute(sql, [
+      firstName,
+      lastName,
+      normalizedEmail,
+      hashedPassword,
+    ]);
+  } catch (error) {
+    //ER_DUP_ENTRY: is mtsql error that tells us we're trying to insert a value that already exists in colunm that is set to be unique
+    if (error?.code === "ER_DUP_ENTRY") {
+      throw new BadRequestError("User already exists with this email.");
+    }
+
+    // Pass any other database error to the error-handling middleware
+    throw error;
+  }
+
 };
 
 /**
