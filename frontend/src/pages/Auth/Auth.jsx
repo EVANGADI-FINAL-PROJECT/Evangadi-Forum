@@ -19,12 +19,13 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Auth.module.css";
 
+// add export from auth context 
 export default function Auth() {
   // Get navigation and authentication functions
   const navigate = useNavigate();
   const location = useLocation();
   const { register, login } = useAuth();
-
+  
   // Controls whether we show Login or Register form
 
   const [isLogin, setIsLogin] = useState(true);
@@ -37,10 +38,11 @@ export default function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // Controls password visibility
+
+   // Controls password visibility
   const [showPassword, setShowPassword] = useState(false);
 
-  // Error and loading state
+   // Error and loading state
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -56,9 +58,13 @@ export default function Auth() {
   return (
     <div className={styles.auth}>
       {/* Left: Info Section */}
+      // TODO: Implement the left info section with branding, description, and
+      features.
       <section className={styles.auth__info}>
         <div className={styles.auth__infoContent}>
+          {/* --------------------------------------------------------- HEADER / BRANDING Contains the logo, application name, tagline, and description. --------------------------------------------------------- */}
           <header className={styles.auth__infoHeader}>
+            {/* Branding container. Clicking the branding takes the user back to the home page. onClick: - Runs when the user clicks the branding. role="button": - Tells assistive technologies that this div behaves like a button. tabIndex={0}: - Allows keyboard users to focus on this element. onKeyDown: - Allows Enter or Space to perform the same action as clicking. */}
             <div
               className={styles.auth__infoBranding}
               onClick={() => navigate("/")}
@@ -66,29 +72,41 @@ export default function Auth() {
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
+                // Check whether the user pressed Enter or Space
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
+                  // Navigate to the application's home page
                   navigate("/");
                 }
               }}
             >
+              {/* Application logo */}{" "}
               <div className={styles.auth__infoLogo} aria-hidden>
+                {" "}
+                {/* MessageSquare is an icon imported from an icon library. aria-hidden means screen readers do not need to announce this decorative icon. */}{" "}
                 <MessageSquare
                   className={styles.auth__infoLogoIcon}
                   size={22}
-                />
+                />{" "}
               </div>
+              {/* Application name and tagline */}{" "}
               <div className={styles.auth__infoBrandCopy}>
-                <p className={styles.auth__infoTitle}>Evangadi Forum</p>
+                {" "}
+                {/* Application title */}{" "}
+                <p className={styles.auth__infoTitle}> Evangadi Forum </p>{" "}
+                {/* Short application description/tagline */}{" "}
                 <p className={styles.auth__infoTagline}>
-                  Learn together. Ask with context.
-                </p>
-              </div>
+                  {" "}
+                  Learn together. Ask with context.{" "}
+                </p>{" "}
+              </div>{" "}
             </div>
+            {/* General description of what users can do after signing in. */}{" "}
             <p className={styles.auth__infoDescription}>
+              {" "}
               Sign in to post technical questions, follow threads, and search
               the forum with both keyword and AI similarity modes, built for
-              Evangadi coursework and peer review.
+              Evangadi coursework and peer review.{" "}
             </p>
           </header>
 
@@ -142,7 +160,6 @@ export default function Auth() {
           </div>
         </div>
       </section>
-
       {/* Right: Auth Forms */}
       <section className={styles.auth__formSection}>
         <div className={styles.auth__formContainer}>
@@ -300,4 +317,5 @@ export default function Auth() {
       </section>
     </div>
   );
+}
 }
