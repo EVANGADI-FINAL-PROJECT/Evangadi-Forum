@@ -22,8 +22,10 @@ const normalizeEmail = (email) => email.trim().toLowerCase();
  * @returns {Promise<boolean>} True if the user exists, false otherwise.
  */
 export const checkUserExists = async (email) => {
-// Task: Register User
-// TODO: Check whether the normalized email already exists.
+  const normalizedEmail = normalizeEmail(email);
+  const sql = "SELECT user_id FROM users WHERE email = ? LIMIT 1";
+  const rows = await safeExecute(sql, [normalizedEmail]);
+  return rows.length > 0;
 
 };
 
@@ -43,10 +45,51 @@ export const registerService = async ({
   email,
   password,
 }) => {
-// Task: Register User
-  // TODO: Validate the request data, prevent duplicate users, hash the password,
-  // create the user, and return the public user fields.
-  // Write the task implementation here.
+  const normalizedEmail = normalizeEmail(email);
+  // This provides an application-level check before attempting the database insert.
+  const userExists = await checkUserExists(normalizedEmail);
+  if (userExists) {
+    throw new BadRequestError("User already exists with this email.");
+  }
+
+  // The salt is different each time bcrypt.genSalt() is called.
+  const salt = await bcrypt.genSalt(10);
+  // Hash the user's password using the generated salt.
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  //  insert the new user's data into the database
+  const sql =
+    "INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?)";
+
+    let result;
+
+  try {
+    // Execute the INSERT query with the user's data
+    result = await safeExecute(sql, [
+      firstName,
+      lastName,
+      normalizedEmail,
+      hashedPassword,
+    ]);
+  } catch (error) {
+    //ER_DUP_ENTRY: is mysql error that tells us we're trying to insert a value that already exists in colunm that is set to be unique
+    if (error?.code === "ER_DUP_ENTRY") {
+      throw new BadRequestError("User already exists with this email.");
+    }
+
+    // Pass any other database error to the error-handling middleware
+    throw error;
+  }
+
+  // Return the newly created user's information.
+  // The password/hash is intentionally not included in the response.
+  return {
+    id: result.insertId,
+    firstName,
+    lastName,
+    email: normalizedEmail,
+  };
+
 };
 
 /**
