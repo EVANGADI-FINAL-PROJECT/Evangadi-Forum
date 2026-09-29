@@ -22,8 +22,10 @@ const normalizeEmail = (email) => email.trim().toLowerCase();
  * @returns {Promise<boolean>} True if the user exists, false otherwise.
  */
 export const checkUserExists = async (email) => {
-// Task: Register User
-// TODO: Check whether the normalized email already exists.
+  const normalizedEmail = normalizeEmail(email);
+  const sql = "SELECT user_id FROM users WHERE email = ? LIMIT 1";
+  const rows = await safeExecute(sql, [normalizedEmail]);
+  return rows.length > 0;
 
 };
 
