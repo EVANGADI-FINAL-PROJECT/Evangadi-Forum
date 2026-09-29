@@ -48,6 +48,9 @@ export const registerService = async ({
   const normalizedEmail = normalizeEmail(email);
   // This provides an application-level check before attempting the database insert.
   const userExists = await checkUserExists(normalizedEmail);
+  if (userExists) {
+    throw new BadRequestError("User already exists with this email.");
+  }
 };
 
 /**
