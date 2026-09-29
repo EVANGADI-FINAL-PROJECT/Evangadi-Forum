@@ -789,7 +789,167 @@ export default function Landing() {
               </div>
             </section>
 
+            {/* Bottom CTA */}
 
-
-
+            <section
+              className={styles.landing__cta}>
+              <div
+                className={
+                  styles.landing__ctaInner
+                }>
+                <h2
+                  className={
+                    styles.landing__ctaTitle
+                  }>
+                  Ready when you are
+                </h2>
+                <p
+                  className={
+                    styles.landing__ctaText
+                  }>
+                  Create a free learner account to
+                  post, reply, and search the
+                  forum index.
+                </p>
+                <button
+                  type="button"
+                  className={
+                    styles.landing__btnPrimary
+                  }
+                  onClick={() =>
+                    navigate("/auth")
+                  }>
+                  Create free account
+                  <ArrowRight
+                    size={16}
+                    aria-hidden
+                  />
+                </button>
+              </div>
+            </section>
           </>
+        )}
+
+        {/* Authenticated view only */}
+
+        {isAuthenticated && (
+          <section
+            className={
+              styles.landing__welcomeBack
+            }>
+            <div
+              className={
+                styles.landing__sectionInner
+              }>
+              <p
+                className={
+                  styles.landing__eyebrow
+                }>
+                Signed in
+              </p>
+              <h2
+                className={
+                  styles.landing__sectionTitle
+                }>
+                Back to your workspace
+              </h2>
+              <p
+                className={
+                  styles.landing__sectionLead
+                }>
+                Home has the live feed, shortcuts,
+                and search. Your topics lists only
+                threads you started.
+                Course-document RAG (ingest,
+                retrieve, cite) ties the Knowledge
+                base to threads. Scroll to{" "}
+                <strong>Course RAG</strong> on
+                this page for the full picture.
+              </p>
+              <button
+                type="button"
+                className={
+                  styles.landing__btnPrimary
+                }
+                onClick={() =>
+                  navigate("/dashboard")
+                }>
+                Open forum home
+                <ArrowRight
+                  size={16}
+                  aria-hidden
+                />
+              </button>
+            </div>
+          </section>
+        )}
+      </main>
+
+      {/* Footer */}
+
+      <footer className={styles.landing__footer}>
+        <div
+          className={styles.landing__footerInner}>
+          <div>
+            <p
+              className={
+                styles.landing__footerBrand
+              }>
+              Evangadi Forum
+            </p>
+            <p
+              className={
+                styles.landing__footerMeta
+              }>
+              © {new Date().getFullYear()} ·
+              Learner-led Q&A
+            </p>
+          </div>
+          <div
+            className={
+              styles.landing__footerLinks
+            }>
+            <button
+              type="button"
+              className={
+                styles.landing__footerLink
+              }
+              onClick={() => navigate("/auth")}>
+              Sign in
+            </button>
+            <span
+              className={
+                styles.landing__footerDot
+              }
+              aria-hidden>
+              ·
+            </span>
+            <a
+              href="#"
+              className={
+                styles.landing__footerLinkAnchor
+              }>
+              Privacy
+            </a>
+            <span
+              className={
+                styles.landing__footerDot
+              }
+              aria-hidden>
+              ·
+            </span>
+            <a
+              href="#"
+              className={
+                styles.landing__footerLinkAnchor
+              }>
+              Terms
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+  
