@@ -24,37 +24,69 @@ export function AuthProvider({ children }) {
   // application needs to check whether the user already has a valid/stored session.
   // Initialize user state from localStorage on mount
   useEffect(() => {
-    // Task: AuthContext + ProtectedRoute
-    // TODO: Restore the existing authentication session from storage.
+    //on initial mount, restore the session if a token and user are restored.
+    //this keeps the user logged in across page refreshes w/out re-login
+    const token = authService.getStoredToken();
+    const storedUser = authService.getStoredUser();
+
+    if (token && storedUser) {
+      setUser(storedUser);
+    }
+
+    setLoading(false);
   }, []);
 
   /**
    * Registers a new user. Does not automatically log them in.
+   * the user must log in after registration succeeds.
    * @param {Object} userData - { firstName, lastName, email, password }
    */
   const register = async (userData) => {
-// Task: AuthContext + ProtectedRoute
     // TODO: Call the auth service registration method and manage loading state.
-    // Write the task implementation here.
-};
+    setLoading(true);
+    try {
+      const { user } = await authService.register(userData);
+      return { success: true, user };
+    } catch (error) {
+      // Re-throw so the calling component can show the error message
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+    
+
 
   /**
    * Authenticates a user and updates the session state if successful..
+   * The auth service persists the token and user in localStorage.
    * @param {Object} credentials - { email, password }
    */
   const login = async (credentials) => {
-// Task: AuthContext + ProtectedRoute
     // TODO: Call the auth service login method and update the authenticated user state.
-    // Write the task implementation here.
-};
+      setLoading(true);
+    try {
+      const { user } = await authService.login(credentials);
+      setUser(user);
+      return { success: true };
+    } catch (error) {
+      // Propagate the error so the calling form can display a message
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   /**
    * Clears the user session and redirects to the login page.
    * handles removing/clearing the stored authentication session
    */
   const logout = () => {
-    // Task: AuthContext + ProtectedRoute
     // TODO: Clear the auth session, update user state, and navigate to /auth.
+    authService.logout();
+    setUser(null);
+    navigate("/auth");
   };
 
   // Context value with state and methods
@@ -68,6 +100,7 @@ export function AuthProvider({ children }) {
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
   // put information into AuthContext.Provider so that it can be accessed by any component that consumes this context.
 //   {
 //     user,
@@ -76,8 +109,8 @@ export function AuthProvider({ children }) {
 //     login,
 //     logout,
 //     isAuthenticated: !!user
-// }
-}
+// } 
+
 
 /**
  * Custom hook to access the authentication context.
