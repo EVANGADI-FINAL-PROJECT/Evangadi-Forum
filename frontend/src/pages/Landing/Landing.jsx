@@ -20,6 +20,8 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Landing.module.css";
 
+
+
 export default function Landing() {
   // Navigation hook for programmatically redirecting users between routes
   const navigate = useNavigate();
@@ -30,17 +32,19 @@ export default function Landing() {
    * Smoothly scrolls the viewport to the 'How it works' section.
    */
   const scrollToHowItWorks = () => {
-// Task: Public Landing Page
-    // TODO: Implement the scrollToHowItWorks interaction.
-};
+    document
+      .getElementById("how-it-works")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   /**
    * Smoothly scrolls the viewport to the 'Course RAG' section.
    */
   const scrollToCourseRag = () => {
-// Task: Public Landing Page
-    // TODO: Implement the scrollToCourseRag interaction.
-};
+    document
+      .getElementById("course-rag")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className={styles.landing}>
@@ -156,6 +160,11 @@ export default function Landing() {
           </div>
         </div>
       </header>
+
+
+
+
+
 
       {/* ================= MAIN CONTENT AREA ================= */}
 
