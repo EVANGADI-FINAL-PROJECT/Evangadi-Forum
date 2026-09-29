@@ -1,13 +1,18 @@
-import { apiClient } from '../core/api.client.js';
+import { apiClient } from "../core/api.client.js";
 
 /**
  * Registers a new user.
  * @param {Object} userData - User details for registration.
  */
 async function register(userData) {
-// Task: Axios + Auth Service
-  // TODO: Call the register API and return the created user.
-  // Write the task implementation here.
+  try {
+    // Send the user's details to the backend (POST) and wait for the reply
+    const response = await apiClient.post("/api/auth/register", userData);
+    return { user: response.data.user };
+  } catch (error) {
+    // Convert the raw Axios error into a user-friendly message and pass it up
+    throw handleAuthError(error);
+  }
 }
 
 /**
@@ -15,59 +20,58 @@ async function register(userData) {
  * @param {Object} credentials - User login credentials.
  */
 async function login(credentials) {
-// Task: Axios + Auth Service
-  // TODO: Call the login API, store the session token/user, and return the result.
-  // Write the task implementation here.
+  try {
+    // Send email and password to the login endpoint
+    const response = await apiClient.post("/api/auth/login", credentials);
+    const { user, token } = response.data;
+   // Pull "user" and "token" out of the response body (destructuring)
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+  // Save the token so the user stays logged in after a page refresh
+    return { user, token };
+  } catch (error) {
+    throw handleAuthError(error);
+  }
 }
-
-/**
- * Logs out the current user by clearing localStorage.
- */
+//Remove session data; key names must match the ones used in login()
 function logout() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
 }
-
-/**
- * Retrieves the stored JWT token from localStorage.
- */
+// Returns the saved token, or null if the user is not logged in
 function getStoredToken() {
-  return localStorage.getItem('token');
+  return localStorage.getItem("token");
 }
 
-/**
- * Retrieves the stored user object from localStorage.
- */
+// "!!" converts the token to true/false (does NOT check if it has expired)
 function getStoredUser() {
-  const userJson = localStorage.getItem('user');
+  const userJson = localStorage.getItem("user");
   if (!userJson) return null;
 
   try {
     return JSON.parse(userJson);
   } catch (error) {
     // If JSON parsing fails, clear invalid data
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
     return null;
   }
 }
-
 /**
  * Checks if the user is currently authenticated based on local storage.
  */
 function isAuthenticated() {
   return !!getStoredToken();
 }
-
 /**
  * Centralized error handler for auth service requests.
  */
 function handleAuthError(error) {
   if (!error.response) {
-    if (error.code === 'ECONNABORTED') {
-      return new Error('Request timed out. Please try again.');
+    if (error.code === "ECONNABORTED") {
+      return new Error("Request timed out. Please try again.");
     }
     return new Error(
-      'Unable to connect to server. Please check your internet connection.',
+      "Unable to connect to server. Please check your internet connection.",
     );
   }
 
@@ -77,15 +81,15 @@ function handleAuthError(error) {
 
   switch (status) {
     case 400:
-      return new Error(backendMessage || 'Invalid input data.');
+      return new Error(backendMessage || "Invalid input data.");
     case 401:
-      return new Error(backendMessage || 'Invalid email or password.');
+      return new Error(backendMessage || "Invalid email or password.");
     case 500:
       return new Error(
-        'Something went wrong on our end. Please try again later.',
+        "Something went wrong on our end. Please try again later.",
       );
     default:
-      return new Error(backendMessage || 'An unexpected error occurred.');
+      return new Error(backendMessage || "An unexpected error occurred.");
   }
 }
 
