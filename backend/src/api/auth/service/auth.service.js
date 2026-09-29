@@ -72,7 +72,7 @@ export const registerService = async ({
       hashedPassword,
     ]);
   } catch (error) {
-    //ER_DUP_ENTRY: is mtsql error that tells us we're trying to insert a value that already exists in colunm that is set to be unique
+    //ER_DUP_ENTRY: is mysql error that tells us we're trying to insert a value that already exists in colunm that is set to be unique
     if (error?.code === "ER_DUP_ENTRY") {
       throw new BadRequestError("User already exists with this email.");
     }
