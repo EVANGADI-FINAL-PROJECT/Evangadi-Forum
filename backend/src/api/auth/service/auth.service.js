@@ -51,6 +51,11 @@ export const registerService = async ({
   if (userExists) {
     throw new BadRequestError("User already exists with this email.");
   }
+
+  // The salt is different each time bcrypt.genSalt() is called.
+  const salt = await bcrypt.genSalt(10);
+  // Hash the user's password using the generated salt.
+  const hashedPassword = await bcrypt.hash(password, salt);
 };
 
 /**
