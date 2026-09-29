@@ -10,11 +10,16 @@ import { registerService, loginService } from '../service/auth.service.js';
  * @returns {Promise<void>}
  */
 export const registerController = async (req, res, next) => {
-// Task: Register User
-  // TODO: Implement user registration here.
-  // Keep the existing request/response contract and pass errors to next().
+
   try {
-    // Write the task implementation here.
+     const { firstName, lastName, email, password } = req.body;
+     const newUser = await registerService({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
+    
   } catch (error) {
     next(error);
   }
